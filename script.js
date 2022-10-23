@@ -35,5 +35,30 @@ async function showPosts() {
   });
 }
 
+// Show loader & fetch more posts
+function showLoading() {
+  setTimeout(()=>{
+    loading.classList.add('show');
+
+    setTimeout(()=>{
+      page++
+      showPosts();
+    },300)
+
+  },1000)
+}
+
+
 // Show initial posts
 showPosts();
+
+window.addEventListener('scroll', () => {
+  // console.log(document.documentElement.scrollTop)
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+  if (scrollTop + clientHeight >= scrollHeight - 5) {
+    console.log(123)
+  }
+
+
+})
