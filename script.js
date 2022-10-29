@@ -37,48 +37,44 @@ async function showPosts() {
 
 // Show loader & fetch more posts
 function showLoading() {
-  setTimeout(()=>{
-    loading.classList.add('show');
+  loading.classList.add('show');
 
-    setTimeout(()=>{
-      page++
+  setTimeout(() => {
+    loading.classList.remove('show');
+
+    setTimeout(() => {
+      page++;
       showPosts();
-    },300)
-
-  },1000)
+    }, 300);
+  }, 1000);
 }
 
-
-//Filter posts by input
+// Filter posts by input
 function filterPosts(e) {
-  const term = e.target.value.toUppercase();
-  const posts = document.querySelectorAll('.post')
+  const term = e.target.value.toUpperCase();
+  const posts = document.querySelectorAll('.post');
 
   posts.forEach(post => {
-    const title = post.querySelector('.post-title').innerText.toUpperCase()
-    const body = post.querySelector('.post-body').innerText.toUpperCase()
+    const title = post.querySelector('.post-title').innerText.toUpperCase();
+    const body = post.querySelector('.post-body').innerText.toUpperCase();
 
-
-    if(title.indexOf(term) > -1 || body.indexOf(term) > -1) {
-      post.style.display = 'flex'
+    if (title.indexOf(term) > -1 || body.indexOf(term) > -1) {
+      post.style.display = 'flex';
     } else {
-      post.style.display = 'none'
+      post.style.display = 'none';
     }
-  })
-
+  });
 }
-
 
 // Show initial posts
 showPosts();
 
 window.addEventListener('scroll', () => {
-  // console.log(document.documentElement.scrollTop)
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
 
   if (scrollTop + clientHeight >= scrollHeight - 5) {
-    console.log(123)
+    showLoading();
   }
-})
+});
 
 filter.addEventListener('input', filterPosts);
